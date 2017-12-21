@@ -25,6 +25,13 @@ namespace c2 {
 		bool				ispointer() const;
 		symbol*				reference();
 	};
+	extern symbol			i8[]; // Signed byte
+	extern symbol			i16[]; // Signed word
+	extern symbol			i32[]; // Signed double word
+	extern symbol			u8[]; // Unsigned byte
+	extern symbol			u16[]; // Unsigned word
+	extern symbol			u32[]; // Unsigned double word
+	extern symbol			v0[]; // Void value or NO value
 	enum expression_s : unsigned char {
 		Value, Symbol,
 		Not, Neg,
@@ -46,15 +53,12 @@ namespace c2 {
 			};
 		};
 		expression() {}
-		expression(expression_s type) : type(type), left(0), right(0) {}
+		expression(expression_s type, expression* left, expression* right) : type(type), left(left), right(right) {}
+		expression(symbol* identifier) : type(Symbol), result(identifier), value(0) {}
+		expression(int value) : type(Value), result(i8), value(0) {}
 		void* operator new(unsigned size);
 		bool				isdeterminal() const { return type <= Symbol; }
+		symbol*				getsymbol() const { return isdeterminal() ? result : 0; }
+		unsigned			getvalue() const { return isdeterminal() ? value : 0; }
 	};
-	extern symbol			i8[]; // Signed byte
-	extern symbol			i16[]; // Signed word
-	extern symbol			i32[]; // Signed double word
-	extern symbol			u8[]; // Unsigned byte
-	extern symbol			u16[]; // Unsigned word
-	extern symbol			u32[]; // Unsigned double word
-	extern symbol			v0[]; // Void value or NO value
 }
