@@ -3,8 +3,8 @@
 
 using namespace c2;
 
-static adat<expression, 4096>	expressions;
+static agrw<expression, 4096>	expressions;
 
-bool expression::isdeterminal() const {
-	return type == Value || type == Symbol;
+void* expression::operator new(unsigned size) {
+	return expressions.add();
 }

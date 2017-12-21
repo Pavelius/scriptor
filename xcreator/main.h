@@ -3,10 +3,6 @@
 #pragma once
 
 namespace c2 {
-	enum expression_s : unsigned char {
-		Value, Symbol,
-		If, Else, While, Expression,
-	};
 	struct symbol {
 		symbol*				result;
 		const char*			id;
@@ -29,6 +25,14 @@ namespace c2 {
 		bool				ispointer() const;
 		symbol*				reference();
 	};
+	enum expression_s : unsigned char {
+		Value, Symbol,
+		Not, Neg,
+		Or, Xor, And,
+		Add, Sub, Mul, Div,
+		Equal, NotEqual, Lesser, Greater, LesserEqual, GreaterEqual,
+		If, Else, While, Expression,
+	};
 	struct expression {
 		expression_s		type;
 		union {
@@ -37,13 +41,14 @@ namespace c2 {
 				expression*	right;
 			};
 			struct {
+				symbol*		result; // Can be type, pointer or member
 				unsigned	value;
-				symbol*		result;
 			};
 		};
-		bool				isdeterminal() const;
 		expression() {}
 		expression(expression_s type) : type(type), left(0), right(0) {}
+		void* operator new(unsigned size);
+		bool				isdeterminal() const { return type <= Symbol; }
 	};
 	extern symbol			i8[]; // Signed byte
 	extern symbol			i16[]; // Signed word
