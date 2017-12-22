@@ -1,10 +1,12 @@
 #include "cface/crt.h"
 #include "cface/adat.h"
+#include "cface/agrw.h"
 
 #pragma once
 
 namespace c2 {
 	namespace url {
+		extern const char*	project;
 		extern const char*	projects;
 		extern const char*	library;
 	}
@@ -18,6 +20,8 @@ namespace c2 {
 		symbol*				child;
 		symbol*				parent;
 		//
+		symbol();
+		void* operator new(unsigned size);
 		operator bool() const { return id != 0; }
 		static symbol*		add();
 		void				clear();

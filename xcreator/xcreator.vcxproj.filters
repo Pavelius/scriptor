@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClInclude Include="view.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="symbol.cpp" />
@@ -10,5 +11,10 @@
     <ClCompile Include="szdup.cpp" />
     <ClCompile Include="..\..\formats\stream\xml.cpp" />
     <ClCompile Include="bns.cpp" />
+    <ClCompile Include="widget_navigator.cpp" />
+    <ClCompile Include="form_module.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tree.pma" />
   </ItemGroup>
 </Project>

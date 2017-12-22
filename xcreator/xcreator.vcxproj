@@ -117,19 +117,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClInclude Include="view.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\formats\stream\xml.cpp" />
     <ClCompile Include="bns.cpp" />
     <ClCompile Include="expression.cpp" />
+    <ClCompile Include="form_module.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="symbol.cpp" />
     <ClCompile Include="szdup.cpp" />
+    <ClCompile Include="widget_navigator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\cface\cface.vcxproj">
       <Project>{0a1c9ad6-05d3-49ab-85c2-466017cee49a}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tree.pma" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

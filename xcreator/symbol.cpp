@@ -6,7 +6,8 @@ enum flag_s : char {
 	Public, Static, Readed, Writed, Pseudoname
 };
 
-typedef adat<symbol, 4096> symbolset;
+static agrw<symbol> symbols;
+static agrw<symbol> pointers;
 
 static symbol* standart_types[] = {i8, i16, i32, u8, u16, u32, v0};
 static unsigned	pointer_size = 4;
@@ -17,15 +18,12 @@ symbol c2::u8[1]; // Байт без знака
 symbol c2::u16[1]; // Слово без знака
 symbol c2::u32[1]; // Двойное слово без знака
 symbol c2::v0[1]; // Путое значение
-static symbolset symbols;
-static symbolset pointers;
-static symbolset modules;
 
-void symbol::clear() {
-	memset(this, 0, sizeof(*this));
+symbol::symbol() {
+	memset(this, 0, sizeof(this));
 }
 
-symbol* symbol::add() {
+void* symbol::operator new(unsigned size) {
 	return symbols.add();
 }
 
@@ -36,12 +34,13 @@ bool symbol::ispointer() const {
 symbol* symbol::reference() {
 	if(!this)
 		return 0;
-	for(auto& e : pointers) {
-		if(e.result == this && e.ispointer())
-			return &e;
+	for(auto pel = &pointers; pel; pel = pel->next) {
+		for(auto& e : *pel) {
+			if(e.result == this && e.ispointer())
+				return &e;
+		}
 	}
-	auto p = pointers.add();
-	p->clear();
+	auto p = new symbol;
 	p->result = this;
 	p->id = szdup("*");
 	p->size = pointer_size;
