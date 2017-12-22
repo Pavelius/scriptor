@@ -1,5 +1,4 @@
 #include "main.h"
-#include "crt.h"
 
 using namespace c2;
 
